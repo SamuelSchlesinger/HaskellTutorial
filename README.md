@@ -1,1 +1,2 @@
-# Haskell Tutorial for Undergraduates
+# Haskell Tutorial
+

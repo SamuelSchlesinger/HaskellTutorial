@@ -2,7 +2,7 @@
 \usepackage{hyperref}
 %include polycode.fmt
 
-\title{Haskell for CS Undergraduates}
+\title{Haskell Tutorial}
 \author{Samuel Schlesinger}
 
 \begin{document}
@@ -21,9 +21,8 @@ these, as each have been accomplished quite fully for Haskell in particular.
 
 \paragraph{}
 My focus is to show a language I love, \textbf{Haskell} to a demographic which I am a part of: 
-\textbf{Undergraduate Computer Science Students} of some sort. Particularly, I will describe concepts
-from \textbf{Data Structures} and \textbf{Algorithms}, though I will try to include a brief explanation
-of each concept discussed.
+\textbf{Undergraduate CS Students}, or people with a comparable knowledge base. Particularly, I will describe concepts from \textbf{Data Structures} and \textbf{Algorithms}, though I will try to include a brief explanation of each concept discussed. I also assume that you are familiar with at least one of the most popular 
+programming languages as a part of the assumption that you have knowledge base similar to an undergraduate.
 
 \paragraph{}
 To tell you a little bit about myself, I'm a student at Clark University entering my Junior year. I study
@@ -517,48 +516,28 @@ In order to implement it for arbitrary lists, we need the \textbf{Constraint} Or
 predicate that demands there must be a function for comparing things of type o.
 
 \paragraph{}
-That brings us a little closer to our definition, the idea that a class is a sort of predicate over a
+That brings us a little closer to our definition, the idea that a class is a sort of requirement for a
 type, or a constraint. That's basically what we want when we have these sorts of desires for types which
 have certain qualities, a type which has a certain group of functions defined upon it in some way or
-another. This is similar to an interface, however an interface has the limitation that you need to be
-given a particular object in order to call the functions defined. To really get down to what that might mean,
-I'm going to show an example inspired by a particularly beautiful Haskell library called QuickCheck. The problem we will attempt to solve is automated testing of functions. In particular, we want to be able to use our
-implementation to arbitrarily generate test data and use it to test our functions...
+another. This is similar to an interface, however an interface, at least in the languages which I've used
+them in, has the limitation that the first argument of each function specified must be the type which
+instantiated it. A class in Haskell, on the other hand, can even request that there exists a function
+that returns the type instantiating it. I'll now define our first class, and define one instance for it.
 
 \begin{code}
 
--- We need a class which represents the ability to generate arbitrary data
-class ArbitraryAttempt a where
-  arbAttempt :: a
+class Testable t where
+  test :: t -> Bool
+
+instance Testable Bool where
+  test b = b
 
 \end{code}
 
 \paragraph{}
-What's wrong with this exactly? Well, because of the notion of referential transparency, this arbitrary
-a which we can get from arbAttempt will be the same value each time. In order to circumvent this, we can use
-a data type to seed our arbitrary value. If we assume that the Integer given is randomly distributed in the size of the sorts of things we want to test, we can use this assumption to write Arbitrary instances that give 
-a good distribution themselves.
-
-\begin{code}
-
-class Arbitrary a where
-  arb :: Integer -> a
-
--- Lets write some instances of this class
-instance Arbitrary Integer where
-  arb x = x -- If we already know x is random, why do anything to it?
-
-instance Arbitrary Int where
-  arb x = fromInteger x
-
-instance Arbitrary Bool where
-  arb x = x `mod` 2 == 0
-
-\end{code}
-
-\paragraph{}
-That seems fine. Now what do we mean when we say something is testable... I think we usually mean that,
-given a value that is testable, I can give you a True or a False depending on whether or not our test
-passed or failed.
+The class declaration says that if t is Testable, there exists a function test which maps t to a Bool,
+presumably to True if the test was passed and to False if the test failed. The instance declaration says
+hey, if I have a Bool already, then testing it should be as simple as returning it. So for Bool, test
+is equivalent to id. We'll come back to this class later.
 
 \end{document}
