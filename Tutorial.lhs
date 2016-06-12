@@ -540,4 +540,98 @@ presumably to True if the test was passed and to False if the test failed. The i
 hey, if I have a Bool already, then testing it should be as simple as returning it. So for Bool, test
 is equivalent to id. We'll come back to this class later.
 
+\section{Data Structures}
+\paragraph{}
+Whenever I learn any new language, the first thing I make sure is that I'm able to implement basic data
+structures. I find that this increases my knowledge about the language and gives me confidence in
+implementing more complex things. As such, that's just what we'll do here. I've already showed you the built
+in list data structure, but we can implement something quite similar to it, something we'll call a Chain
+for now. We'll assume that a Link is a Chain, and each Link is attached to some Chain.
+
+\begin{code}
+
+data Chain a = Link a (Chain a)
+
+\end{code}
+
+\paragraph{}
+So now, whenever we have a Link a, we can pull out the first a, and we can get the rest of the chain. We
+can also imagine this function as one thing, similar to popping from a stack, where we get out the first
+element and the rest of the Chain.
+
+\begin{code}
+
+first :: Chain a -> a
+first (Link a _) = a
+
+rest :: Chain a -> Chain a
+rest (Link _ cs) = cs
+
+pop :: Chain a -> (a, Chain a)
+pop (Link a cs) = (a, cs)
+
+\end{code}
+
+\paragraph{}
+Cool, so now we have ways of taking things out of Chains, but how can we construct them? Well, in most
+programming languages, arguments to functions are evaluated strictly, so if some function call goes
+into an infinite loop, then your whole program halts. This is not the case with Haskell. In Haskell,
+items are evaluated lazily, which means that, until the result of some diverging computation is
+needed, it won't cause the program to halt. This lets us construct infinite chains via recursion, as
+below.
+
+\begin{code}
+
+forever :: a -> Chain a
+forever a = Link a (forever a)
+
+\end{code}
+
+\paragraph{}
+This is great, but all it really gives us is a way to create infinite constant sequences... Let's see
+what else we can do. Lets try to make some functions which complement the ones we already have.
+Particularly, we can look at pop, which takes a Chain and splits it into the rest and the first. Lets try
+to come up with the inverse of this function, which we can call push. 
+
+\paragraph{}
+To do so, let's set some rules: push (pop c) = c and let's do some reasoning.
+
+\begin{quote}
+
+push (pop (Link a cs)) = push (a, cs) = Link a cs
+
+\end{quote}
+
+\paragraph{}
+From setting this identity and reasoning from there, we've come up with a definition for push which
+merely involves the parameters it needs to take. We can now define this.
+
+\begin{code}
+
+push (a, cs) = Link a cs
+
+\end{code}
+
+\paragraph{}
+What other functions should we try for? Well, what about a function which takes another function
+and maps every single element of our chain through it? In other words, if we have a Chain of
+all of the positive numbers, and we want to get all the even numbers, we can just pass our chain
+and the function that multiplies things by two through this mapping function. The axioms we'd want
+to satisfy for this function, which we'll call fmap, would probably be as follows:
+
+\begin{quote}
+
+fmap id x = x
+
+fmap f (fmap g x) = fmap (f . g) x
+
+\end{quote}
+
+\paragraph{}
+That is to say, if we map the identity function over our chains, we want them to stay the same,
+and if we map g and then map f over a chain, it should just be the same as doing g composed with f
+the first time. It turns out there is a typeclass for things of this exact form called Functor.
+Let's do some more reasoning and figure out how our fmap must be defined...
+
+
 \end{document}
