@@ -92,7 +92,7 @@ ghci Tutorial.lhs
 This may allow you to play with some of the definitions and make sure I haven't screwed anything up
 as you read through this. Fair warning, however, GHCi does not let you make high level definitions in
 the same way that you can in an external file. If you'd like to make your own definitions in GHCi you
-can use a \textbf{let} statement or open a file on your own and load it into GHCi the way I described (you can put multiple files, i.e ghci x.hs y.hs ...), or with :l <filename> once you're in GHCi. If you get confused,
+can use a \textbf{let} statement or open a file on your own and load it into GHCi the way I described (you can put multiple files, i.e ghci x.hs y.hs ...), or with :l a.hs once you're in GHCi. If you get confused,
 :h within GHCi will show you your options, and there is good documentation online.
 
 \clearpage
