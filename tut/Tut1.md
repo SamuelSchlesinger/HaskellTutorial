@@ -69,11 +69,14 @@ move on:
 
 ```Haskell
 
-data Bit = On | Off
+filter :: (a -> Bool) -> [a] -> [a]
+filter p as = case as of
+  a : as -> if p a then a : filter p as else filter p as
+  [] -> []
 
-bitsforever :: Integer -> [Bit]
-bitsforever n = if n `mod` 2 == 0 
-  then On : bitsforever (n `div` 2) 
-  else Off : bitsforever (n `div` 2)
+map :: (a -> b) -> [a] -> [b]
+map f as = case as of
+  a : as -> f a : map f as
+  [] -> []
 
 ```
