@@ -39,7 +39,7 @@ y = (fmap f1 . fmap f2 ... . fmap fn) x = fmap (f1 . f2 . ... . fn) x
 
 ```
 
-The latter way would be much more convenient, and we can avoid a helluva lot of cache misses.
-Depending on the structure of x, this can give us a lot of speedup.
+The latter way would be much more convenient, and we can avoid a helluva lot of cache misses if x
+is distributed in memory.
 
 
