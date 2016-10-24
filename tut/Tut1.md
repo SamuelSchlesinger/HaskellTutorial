@@ -71,9 +71,9 @@ move on:
 
 data Bit = On | Off
 
-bits :: Integer -> [Bit]
-bits n = if n `mod` 2 == 0 
-  then More On (bits (n `div` 2)) 
-  else More Off (bits (n `div` 2))
+bitsforever :: Integer -> [Bit]
+bitsforever n = if n `mod` 2 == 0 
+  then On : bitsforever (n `div` 2) 
+  else Off : bitsforever (n `div` 2)
 
 ```
