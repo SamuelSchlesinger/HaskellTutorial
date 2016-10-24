@@ -72,7 +72,7 @@ in our language, using primitives offered by GHC, the Haskell compiler which you
 
 ```Haskell
 
-type IO a = State# RealWorld -> (# State# RealWorld, a #-)
+type IO a = State RealWorld -> (State RealWorld, a)
 
 ```
 
