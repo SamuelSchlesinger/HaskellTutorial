@@ -64,14 +64,16 @@ lengthTwo xs = case xs of
 
 ```
 
-Here are some more types and functions which you should try to play with and understand before we 
-move on:
+The things I've introduced so far, albeit briefly, are to me the reason why Haskell is the most
+productive programming language to use and I'm pretty certain when I say that Haskell and it's derivatives (Purescript, Elm, etc) really do have the best facilities for this type of programming. OCaml is definitely a close second but there are lousily long keywords in certain areas that just makes me miss the Haskell syntax. The following two functions are very important and illustrate the essential flavor of functional programming:
 
 ```Haskell
 
 filter :: (a -> Bool) -> [a] -> [a]
 filter p as = case as of
-  a : as -> if p a then a : filter p as else filter p as
+  a : as -> if p a 
+    then a : filter p as 
+    else filter p as
   [] -> []
 
 map :: (a -> b) -> [a] -> [b]
@@ -80,3 +82,8 @@ map f as = case as of
   [] -> []
 
 ```
+
+What filter does is the following: given a function p from a to Bool, and a list of as, filter p as
+gives me a list of as for which I can be sure all of them satisfy the predicate. This is even obvious in the declaration itself, as it runs over the list creating a new one, only adding each element if they satisfy the predicate p supplied. 
+
+What map does is the following: given a function f from a to b, and a list of as, map f as will be a list with the same structure as the one passed in, but with each a being mapped to f a. 
