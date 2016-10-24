@@ -25,4 +25,21 @@ l1 = NoMore
 
 ```
 
+This is great! With this knowledge in hand, we can use what's called in Haskell a "case statement",
+which I can demonstrate with the following example which takes the length of a list:
 
+```Haskell
+
+length :: List a -> Int
+length list = case list of
+  More first rest -> 1 + length rest
+  NoMore          -> 0
+
+```
+
+What the above declaration states is that, given any List, I know it can take at most two forms, so
+I can check which one it is. If there are NoMore elements in the list, this means that it is of
+length 0, so I can simply return 0. If there's one element in the first position of the list, then
+I should add 1 for that element onto the length of the rest of the elements. This is the logical way
+I understand this algorithm, and being able to do this case analysis inside of my programs as well
+as in my mind is really excellent. 
