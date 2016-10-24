@@ -87,3 +87,6 @@ What filter does is the following: given a function p from a to Bool, and a list
 gives me a list of as for which I can be sure all of them satisfy the predicate. This is even obvious in the declaration itself, as it runs over the list creating a new one, only adding each element if they satisfy the predicate p supplied. 
 
 What map does is the following: given a function f from a to b, and a list of as, map f as will be a list with the same structure as the one passed in, but with each a being mapped to f a. 
+
+These functions are usually prefaced with countless examples of why this is useful and these patterns appear everywhere, but I'll assume that the reader is versed in programming in some other language and it will be obvious that these patterns pop up everywhere. A common theme of Haskell is that the things called "patterns" in other languages tend to be implemented as concrete abstractions in the Haskell provides you to talk about types, programs, and their interactions.
+
