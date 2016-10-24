@@ -21,15 +21,25 @@ between two domains, to a function between the two domains mapped over by f, whi
 function, a template by C++ lingo, or a generic in Java lingo. This generalizes the following sort
 of pattern:
 
+The rules that we want implementations of Functor to obey are the following:
+
 ```Haskell
 
-data Counted a = Counted a Integer
-
-modifyCounted :: (a -> b) -> Counted a -> Counted b
-modifyCounted f (Counted a n) = modify (f a) n
-
-data Stream a = Stream a (Stream a)
-modifyAll :: (a -> b) -> Stream a -> Stream b
-modifyAll f (Stream a as) = Stream (f a) (modifyAll f as)
+fmap f . fmap g = fmap (f . g) x
+fmap id = id
 
 ```
+
+This lets us optimize lots of code, for instance see the following, wherein we assume that the
+data structure we are mapping these functions over is distributed throughout some huge database:
+
+```Haskell
+
+y = (fmap f1 . fmap f2 ... . fmap fn) x = fmap (f1 . f2 . ... . fn) x
+
+```
+
+The latter way would be much more convenient, and we can avoid a helluva lot of cache misses.
+Depending on the structure of x, this can give us a lot of speedup.
+
+
