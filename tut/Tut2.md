@@ -77,7 +77,7 @@ type IO a = State RealWorld -> (State RealWorld, a)
 ```
 
 This means that IO a is literally a function from the state of the real world, to another state
-of the real world plus some a which was computed in the process of that change. This is our
-model for interactions with the outside world, and we can interact with this model really seamlessly
-using certain notions from a body of mathematical knowledge referred to as category theory which
-I'll discuss in the next bit.
+of the real world plus some a which was computed in the process of that change. Understanding this
+abstraction is not necessary for our being able to use the IO faculties we have in Haskell. This is 
+our model for interactions with the outside world, and we can interact with this model really 
+painlessly using certain notions from a body of mathematical knowledge referred to as category theory which I'll discuss briefly in the next bit.
