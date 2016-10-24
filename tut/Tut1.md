@@ -12,12 +12,16 @@ data List a
 
 ```
 
-What this code does for us is introduce a new type called List, as well as an invariant for
-List which takes the following form:
+What this code does for us is introduce a new type called List which takes a function a in a
+similar way to Java generics or C++ templates, as well as an invariant for List which says that 
+if we know that l1 is a "List Int", then we know that it takes one of two forms, for some unknown n
+and l2:
 
 ```Haskell
 
-forall (l :: List a). l = More x l' or l = NoMore
+l1 = More n l2
+or
+l1 = NoMore
 
 ```
 
