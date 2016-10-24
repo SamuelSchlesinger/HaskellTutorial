@@ -1,8 +1,9 @@
 ## Introduction
 
 This is meant to be a concise tutorial which will show you the Haskell programming language
-by example and explain the machinery behind each example with references to learn more. Below
-is the definition of a polymorphic linked list in Haskell.
+by example and get to certain things which aren't often shown in the tutorials which target beginners. I will assume that you have access to resources like [Learn You a Haskell](http://learnyouahaskell.com/) and will really blow through a lot of pedagogy to show you the cool thing you can accomplish 
+once you understand the basic machinery. I will intentionally keep my discussion as conversational
+and minimal in terms of required knowledge, but please raise an issue if something needs clarification. Below is the definition of a polymorphic linked list in Haskell.
 
 ```Haskell
 
