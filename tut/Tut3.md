@@ -42,4 +42,10 @@ y = (fmap f1 . fmap f2 ... . fmap fn) x = fmap (f1 . f2 . ... . fn) x
 The latter way would be much more convenient, and we can avoid a helluva lot of cache misses if x
 is distributed in memory.
 
+```Haskell
 
+class Functor f => Applicative f where
+  pure :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
+
+```
